@@ -20,6 +20,18 @@ float random(vec2 st) {
     return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
 }
 
+// Simple 2D Noise for organic shapes
+float noise(vec2 st) {
+    vec2 i = floor(st);
+    vec2 f = fract(st);
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+
 void main() {
     // Sample the fluid data
     // R=VelX, G=VelY, B=Density
@@ -28,37 +40,31 @@ void main() {
     vec2 velocity = fluid.xy;
     float density = fluid.b;
     
-    //--- DISPLACEMENT (WARPING) ---
-    // Use the velocity to warp the UVs of the underlying image
-    // Stronger velocity = stronger warp
+    //--- 1. DISPLACEMENT (The Liquid Warp) ---
     float distortionStrength = 0.04;
+    // We warp the UVs based on velocity so the image ripples
     vec2 distortedUv = vUv - velocity * distortionStrength;
-    
-    // Sample background with distorted UVs
     vec4 color = texture2D(uTexture, distortedUv);
     
-    //--- MASKING (REVEAL) ---
-    // Only show the image where there is "density" (fluid)
-    float mask = smoothstep(0.0, 0.2, density);
+    //--- 2. THE REVEAL MASK (Smoother Organic Shape) ---
+    // Generate softer noise pattern
+    float n = noise(vUv * 2.0); // Lower frequency for smoother waves
     
-    // Apply mask - Start with Black
-    vec3 finalColor = color.rgb * mask;
+    // Distort the density field slightly (smoother than before)
+    float organicDensity = density + (n - 0.5) * 0.1; // Reduced distortion amplitude
     
-    //--- RED GLOW (ADDITIVE) ---
-    // User wants a "Christmas Glow" / Red Neon look.
-    // Additive blending based on density.
-    vec3 neonRed = vec3(1.0, 0.2, 0.05); // Orange-Red
+    // Wide reveal mask
+    float revealMask = smoothstep(0.0, 0.35, organicDensity);
     
-    // Glow intensity
-    float glowIntensity = density * 1.5; 
+    // Apply reveal mask - Start with Black
+    vec3 finalColor = color.rgb * revealMask;
     
-    // Add the glow
-    finalColor += neonRed * glowIntensity;
+
     
     //--- CINEMATIC POLISH ---
-    // Noise/Grain for texture
-    float noise = random(vUv * 100.0);
-    finalColor += noise * 0.03 * mask; // Only add noise where visible
+    // Add noise only where the image is visible
+    float grain = random(vUv * 100.0);
+    finalColor += grain * 0.03 * revealMask; 
     
     // Vignette
     vec2 uv = vUv * 2.0 - 1.0;

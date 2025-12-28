@@ -45,7 +45,7 @@ void main() {
     float dist = distance(vUv, mouse);
     
     // Splat Radius
-    float radius = 0.025;
+    float radius = 0.12; // Massive reveal brush
     float splat = exp(-pow(dist / radius, 2.0));
     
     // Impulse: Add mouse velocity to the fluid velocity field

@@ -15,7 +15,7 @@ export default function Register() {
     };
 
     return (
-        <div className="min-h-screen w-full bg-[#050505] text-[#e8cfa8] relative overflow-hidden flex items-center justify-center p-6">
+        <div className="min-h-screen w-full bg-[#050505] text-[#e8cfa8] relative overflow-hidden flex items-center justify-center p-6 pointer-events-auto">
 
             {/* Subtle Background Elements */}
             <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[100px]" />

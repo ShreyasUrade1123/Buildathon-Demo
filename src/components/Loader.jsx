@@ -56,7 +56,7 @@ const Loader = ({ onComplete }) => {
                     transition: 'all 0.1s ease',
                     opacity: 1 - progress / 200 // Fade out slightly as it finishes
                 }}>
-                    HACKATHON
+                    MEGALLM
 
                     {/* Glitch Duplicate 1 */}
                     <span style={{
@@ -70,7 +70,7 @@ const Loader = ({ onComplete }) => {
                         clipPath: 'inset(20% 0 80% 0)',
                         transform: 'translateX(-2px)',
                         pointerEvents: 'none'
-                    }}>HACKATHON</span>
+                    }}>MEGALLM</span>
 
                     {/* Glitch Duplicate 2 */}
                     <span style={{
@@ -84,7 +84,7 @@ const Loader = ({ onComplete }) => {
                         clipPath: 'inset(60% 0 10% 0)',
                         transform: 'translateX(2px)',
                         pointerEvents: 'none'
-                    }}>HACKATHON</span>
+                    }}>MEGALLM</span>
                 </h1>
 
                 <div style={{
