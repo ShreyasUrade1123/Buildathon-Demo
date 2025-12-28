@@ -4,13 +4,18 @@ import Hero from '../components/Hero';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import FluidBackground from '../components/FluidBackground';
+import SplashCursor from '../components/SplashCursor'; // 1. Import the component
 
 export default function Home() {
     return (
         <>
-            {/* Fluid Background - Home Exclusive */}
+            {/* 2. SplashCursor - Placed here to sit on top of the background */}
+            {/* It has fixed positioning and z-index built-in, so it will overlay correctly */}
+            <SplashCursor />
+
+            {/* Fluid Background - Home Exclusive - Optimization: Clamp DPR */}
             <div className="fixed inset-0 z-0 h-full w-full">
-                <Canvas orthographic camera={{ zoom: 1, position: [0, 0, 1] }}>
+                <Canvas dpr={[1, 2]} orthographic camera={{ zoom: 1, position: [0, 0, 1] }}>
                     <Suspense fallback={null}>
                         <FluidBackground />
                     </Suspense>
