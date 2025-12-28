@@ -42,18 +42,24 @@ void main() {
     
     // 2. External Forces (Mouse Input)
     vec2 mouse = uMouse;
-    float dist = distance(vUv, mouse);
     
-    // Splat Radius
-    float radius = 0.12; // Massive reveal brush
-    float splat = exp(-pow(dist / radius, 2.0));
+    // Correct for Aspect Ratio to ensure a perfect circle
+    float aspect = uResolution.x / uResolution.y;
+    vec2 aspectVec = vec2(aspect, 1.0);
+    
+    // Distance in aspect-corrected space
+    float dist = distance(vUv * aspectVec, mouse * aspectVec);
+    
+    // Splat Radius - Increased to match reference "spotlight" size
+    float radius = 0.25; 
+    float splat = exp(-pow(dist / radius, 3.0)); // Slightly sharper edge than Gaussian (pow 2.0)
     
     // Impulse: Add mouse velocity to the fluid velocity field
     // We scale it down so it's not too explosive
     vec2 impulse = uMouseVelocity * 8.0 * splat;
     
     // Add Density: Just adding "dye" where the mouse is
-    float densitySource = splat * 1.0; 
+    float densitySource = splat * 1.5; // Stronger density for clearer reveal
     
     // Apply changes
     data.xy += impulse; // Add velocity

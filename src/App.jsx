@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import Home from './pages/Home';
 import Register from './pages/Register';
+import Success from './pages/Success';
 import Loader from './components/Loader';
 
 import './App.css';
@@ -35,14 +36,14 @@ function App() {
         transition={{ duration: 1.5, delay: 0.5 }}
         className="relative min-h-screen bg-black"
       >
-        {/* 🔑 GLOBAL TOP SAFE AREA */}
-        <div className="h-6 md:h-10" />
+
 
         {/* Routes */}
         <div className="relative z-10">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/success" element={<Success />} />
           </Routes>
         </div>
       </motion.div>

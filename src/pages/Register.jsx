@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 export default function Register() {
-    const [submitted, setSubmitted] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Simulate API call
         setTimeout(() => {
-            setSubmitted(true);
+            navigate('/success');
         }, 800);
     };
 
@@ -31,7 +31,7 @@ export default function Register() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <h2 className="text-4xl font-serif mb-2 text-center">Join the Buildathon</h2>
+                    <h2 className="text-4xl font-neue mb-2 text-center">Join the Buildathon</h2>
                     <p className="text-center text-gray-500 text-sm mb-12">Submit your project details below.</p>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -66,24 +66,6 @@ export default function Register() {
                 </motion.div>
             </div>
 
-            {/* Success Toast */}
-            <AnimatePresence>
-                {submitted && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#1a1a1a] border border-[#333] px-6 py-4 rounded-lg flex items-center gap-3 shadow-2xl"
-                    >
-                        <CheckCircle className="text-green-500" size={20} />
-                        <div>
-                            <h4 className="text-sm font-bold text-white">Registered Successfully</h4>
-                            <p className="text-xs text-gray-400">See you on the leaderboard.</p>
-                        </div>
-                        <button onClick={() => setSubmitted(false)} className="ml-4 text-gray-500 hover:text-white">&times;</button>
-                    </motion.div>
-                )}
-            </AnimatePresence>
         </div>
     );
 }

@@ -96,6 +96,7 @@ const FluidBackground = () => {
         simMaterial.uniforms.uTexture.value = fboRead.current.texture;
         simMaterial.uniforms.uMouse.value.copy(currentMouse);
         simMaterial.uniforms.uMouseVelocity.value.copy(velocity);
+        simMaterial.uniforms.uResolution.value.set(size.width, size.height);
 
         // --- 3. RENDER SIMULATION ---
         gl.setRenderTarget(fboWrite.current);
