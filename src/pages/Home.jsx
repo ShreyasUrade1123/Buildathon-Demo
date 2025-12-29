@@ -22,7 +22,7 @@ export default function Home() {
                 </Canvas>
             </div>
 
-            <main className="relative z-10 w-full h-screen flex flex-col justify-between p-12 md:p-20 text-[#ececec] pointer-events-none select-none">
+            <main className="relative z-10 w-full h-screen flex flex-col justify-between p-6 md:p-12 lg:p-20 text-[#ececec] pointer-events-none select-none">
                 {/* Header */}
                 <Header />
 

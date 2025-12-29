@@ -22,9 +22,9 @@ const Hero = () => {
                     <span className="h-[1px] w-8 bg-[#e8cfa8]/30"></span>
                 </div>
 
-                <h1 className="text-6xl md:text-9xl font-medium text-[#e8cfa8] tracking-tight leading-[0.9]">
+                <h1 className="text-5xl md:text-7xl lg:text-9xl font-medium text-[#e8cfa8] tracking-tight leading-[0.9]">
                     <span className="block font-NeueHaasGrotesk font-medium text-[#f0ebe3]">MegaLLM</span>
-                    <span className="block italic font-serif text-[#e8cfa8] opacity-80 text-5xl md:text-7xl mt-2">Buildathon</span>
+                    <span className="block italic font-serif text-[#e8cfa8] opacity-80 text-3xl md:text-5xl lg:text-7xl mt-2">Buildathon</span>
                 </h1>
             </motion.div>
 

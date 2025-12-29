@@ -35,10 +35,12 @@ const RenderMaterial = {
 const FluidBackground = () => {
     const { size, gl, pointer, viewport } = useThree();
     // Load local image from public folder
-    const texture = useTexture('Images/ChatGPT Image Dec 28, 2025, 05_25_54 PM.png');
+    const texture = useTexture('/Images/ChatGPT Image Dec 28, 2025, 05_25_54 PM.png');
 
     // Resolution: Higher = nicer liquid, lower = more pixelated/performant
-    const simRes = 256;
+    // Optimization: Dynamic resolution based on device type
+    const isMobile = window.innerWidth < 768;
+    const simRes = isMobile ? 128 : 256;
 
     const options = {
         format: THREE.RGBAFormat,
@@ -117,8 +119,27 @@ const FluidBackground = () => {
         fboWrite.current = t;
     });
 
+    // Fix for "compressed" look on mobile: Calculate scale to simulate 'background-size: cover'
+    const { width: vw, height: vh } = viewport;
+    // Default to 1 if texture not yet loaded (though useTexture suspends)
+    const imgW = texture.image?.width || 1;
+    const imgH = texture.image?.height || 1;
+    const imgRatio = imgW / imgH;
+    const viewRatio = vw / vh;
+
+    // If viewport is wider than image (relative to height), fit to width (height will crop)
+    // If viewport is taller than image, fit to height (width will crop)
+    let finalScaleX, finalScaleY;
+    if (viewRatio > imgRatio) {
+        finalScaleX = vw;
+        finalScaleY = vw / imgRatio;
+    } else {
+        finalScaleX = vh * imgRatio;
+        finalScaleY = vh;
+    }
+
     return (
-        <mesh ref={finalMesh} scale={[viewport.width, viewport.height, 1]}>
+        <mesh ref={finalMesh} scale={[finalScaleX, finalScaleY, 1]}>
             {/* Full viewport plane */}
             <planeGeometry args={[1, 1]} />
             <primitive object={renderMaterial} attach="material" />
