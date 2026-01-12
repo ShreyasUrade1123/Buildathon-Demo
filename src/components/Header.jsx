@@ -25,7 +25,7 @@ const Header = () => {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden md:flex items-center gap-6 text-xs md:text-sm tracking-wide text-[#e8cfa8] font-light pointer-events-auto">
+                    <nav className="hidden lg:flex items-center gap-6 text-xs md:text-sm tracking-wide text-[#e8cfa8] font-light pointer-events-auto">
                         <Link to="/" className="bg-transparent border-none outline-none cursor-pointer hover:text-white transition-colors focus:ring-0">
                             Home
                         </Link>
@@ -41,7 +41,7 @@ const Header = () => {
                     {/* Mobile Hamburger Button */}
                     <button
                         onClick={toggleMenu}
-                        className="md:hidden pointer-events-auto text-[#e8cfa8] focus:outline-none z-50 relative p-2"
+                        className="lg:hidden pointer-events-auto text-[#e8cfa8] focus:outline-none z-50 relative p-2"
                         aria-label="Toggle menu"
                     >
                         <div className="w-6 h-5 flex flex-col justify-between">
@@ -62,7 +62,7 @@ const Header = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 bg-black/95 z-40 md:hidden flex flex-col items-center justify-center pointer-events-auto"
+                        className="fixed inset-0 bg-black/95 z-40 lg:hidden flex flex-col items-center justify-center pointer-events-auto"
                     >
                         <nav className="flex flex-col items-center gap-8 text-xl tracking-widest text-[#e8cfa8] font-light">
                             <Link
